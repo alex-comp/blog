@@ -2,31 +2,28 @@
 <head>
     <!--CSS-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
     <title>MyBlog</title>
 </head>
 <body>
 
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyBlog</span>
-            <a href="/newPost" class="btn btn-primary" role="button">Novo Post</a>
-        </nav>
-    </header>
+    <div th:insert="base.html :: header"></div>
 
     <section>
         <div class="container" style="width: 60%; padding-bottom: 30px;">
-
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">Posts</li>
                 </ol>
             </nav>
-
+            <div style="display: flex;justify-content: flex-end">
+                <a href="/newPost" class="btn btn-primary" style="color: white"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">add</i>Novo Post</a>
+            </div>
             <div class="card shadow-sm bg-white rounded" style="margin-top: 20px" th:each="post : ${posts}">
                 <div class="card-body">
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem">
                         <span th:text = "${post.autor}"></span>
-                        <span th:text = "${post.data}"></span>
+                        <span th:text = "${#temporals.format(post.data,'dd-MMM-yyyy')}"></span>
                     </p>
 
                     <a th:href="${(#mvc.url('BC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h4></a>
