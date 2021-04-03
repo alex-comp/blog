@@ -27,6 +27,7 @@
             </ol>
         </nav>
         <div>
+            <th:block th:include="mensagemValidacao"></th:block>
             <form method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="titulo" placeholder="Título *">
@@ -43,7 +44,6 @@
                     <button type="submit" class="btn btn-primary">Publicar</button>
                     <a href="/posts" class="btn btn-light" role="button">Cancelar</a>
                 </div>
-                <!--<button type="submit" class="btn" style="margin-top: 10px;">Cancelar</button>-->
             </form>
         </div>
 
