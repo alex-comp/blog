@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(AUTH_LIST).permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/entrar").permitAll().defaultSuccessUrl("/posts", true)
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .and().formLogin().loginPage("/entrar").permitAll().failureUrl("/entrar?error").permitAll().defaultSuccessUrl("/posts", true)
+                .and().logout().logoutSuccessUrl("/entrar?logout").permitAll();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers( "/css/**", "/js/**","/fonts/**","/images/**","/resources/**");
+        web.ignoring().antMatchers( "/css/**", "/js/**","/fonts/**","/images/**");
     }
 
 

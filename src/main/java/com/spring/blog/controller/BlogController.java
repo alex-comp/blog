@@ -1,7 +1,7 @@
 package com.spring.blog.controller;
 
 import com.spring.blog.model.Post;
-import com.spring.blog.service.BlogService;
+import com.spring.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 public class BlogController {
     @Autowired
-    BlogService blogService;
+    PostService postService;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getRoot(){
@@ -33,7 +33,7 @@ public class BlogController {
     @RequestMapping(value = "/posts",method = RequestMethod.GET)
     public ModelAndView getPosts(){
         ModelAndView mv = new ModelAndView("posts");
-        List<Post> posts = blogService.findAll();
+        List<Post> posts = postService.findAll();
         mv.addObject("posts", posts);
         return mv;
     }
@@ -41,7 +41,7 @@ public class BlogController {
     @RequestMapping(value = "/post/{id}",method = RequestMethod.GET)
     public ModelAndView getPostDetails(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("postDetails");
-        Post post = blogService.findById(id);
+        Post post = postService.findById(id);
         mv.addObject("post", post);
         return mv;
     }
@@ -58,7 +58,7 @@ public class BlogController {
             return "redirect:/newPost";
         }
         post.setData(LocalDate.now());
-        blogService.save(post);
+        postService.save(post);
         return "redirect:/posts";
     }
 }

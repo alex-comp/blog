@@ -1,30 +1,30 @@
 package com.spring.blog.service.serviceImpl;
 
 import com.spring.blog.model.Post;
-import com.spring.blog.repository.BlogRepository;
-import com.spring.blog.service.BlogService;
+import com.spring.blog.repository.PostRepository;
+import com.spring.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BlogServiceImpl implements BlogService {
+public class PostServiceImpl implements PostService {
     @Autowired
-    BlogRepository blogRepository;
+    PostRepository postRepository;
 
     @Override
     public List<Post> findAll() {
-        return blogRepository.findAll();
+        return postRepository.findAll();
     }
 
     @Override
     public Post findById(long id) {
-        return blogRepository.findById(id).get();
+        return postRepository.findById(id).get();
     }
 
     @Override
     public Post save(Post post) {
-        return blogRepository.save(post);
+        return postRepository.save(post);
     }
 }

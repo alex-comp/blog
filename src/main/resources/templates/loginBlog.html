@@ -16,6 +16,12 @@
 </head>
 <body>
 <div class="container">
+    <div class="text-center" th:if="${param.error}">
+        <div class="alert alert-danger">Usuário e/ou senha inválidos!</div>
+    </div>
+    <div class="text-center" th:if="${param.logout}">
+        <div class="alert alert-info">Você fez logout!</div>
+    </div>
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">

@@ -4,7 +4,7 @@ import com.spring.blog.model.Post;
 
 import java.util.List;
 
-public interface BlogService {
+public interface PostService {
     List<Post> findAll();
     Post findById(long id);
     Post save(Post post);
