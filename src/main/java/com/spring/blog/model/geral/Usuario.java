@@ -1,4 +1,4 @@
-package com.spring.blog.model;
+package com.spring.blog.model.geral;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

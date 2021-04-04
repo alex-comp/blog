@@ -19,6 +19,11 @@ public class UsuarioPermissaoImpl implements UsuarioPermissaoService {
     }
 
     @Override
+    public UsuarioPermissao findByUserName(String userName){
+        return usuarioPermissaoRepository.findByUsuario_Login(userName);
+    }
+
+    @Override
     public UsuarioPermissao findById(long id) {
         return usuarioPermissaoRepository.findById(id).get();
     }

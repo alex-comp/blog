@@ -1,6 +1,6 @@
 package com.spring.blog.model.seguranca;
 
-import com.spring.blog.model.Usuario;
+import com.spring.blog.model.geral.Usuario;
 
 import javax.persistence.*;
 

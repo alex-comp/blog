@@ -1,6 +1,6 @@
-package com.spring.blog.service;
+package com.spring.blog.service.geral;
 
-import com.spring.blog.model.Grupo;
+import com.spring.blog.model.geral.Grupo;
 
 import java.util.List;
 

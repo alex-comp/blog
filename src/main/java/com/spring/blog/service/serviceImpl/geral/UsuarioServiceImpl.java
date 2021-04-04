@@ -1,8 +1,8 @@
-package com.spring.blog.service.serviceImpl;
+package com.spring.blog.service.serviceImpl.geral;
 
-import com.spring.blog.model.Usuario;
-import com.spring.blog.repository.UsuarioRepository;
-import com.spring.blog.service.UsuarioService;
+import com.spring.blog.model.geral.Usuario;
+import com.spring.blog.repository.geral.UsuarioRepository;
+import com.spring.blog.service.geral.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
+    }
+
+    @Override
+    public Usuario findByUserName(String userName){
+        return usuarioRepository.findByLogin(userName);
     }
 
     @Override

@@ -1,6 +1,4 @@
-package com.spring.blog.model;
-
-import org.springframework.stereotype.Component;
+package com.spring.blog.model.geral;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

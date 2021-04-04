@@ -1,9 +1,8 @@
-package com.spring.blog.service.serviceImpl;
+package com.spring.blog.service.serviceImpl.geral;
 
-import com.spring.blog.model.Grupo;
-import com.spring.blog.model.Post;
-import com.spring.blog.repository.GrupoRepository;
-import com.spring.blog.service.GrupoService;
+import com.spring.blog.model.geral.Grupo;
+import com.spring.blog.repository.geral.GrupoRepository;
+import com.spring.blog.service.geral.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

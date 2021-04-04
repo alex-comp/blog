@@ -1,5 +1,6 @@
 package com.spring.blog.service.serviceImpl.seguranca;
 
+import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.GrupoPermissao;
 import com.spring.blog.repository.seguranca.GrupoPermissaoRepository;
 import com.spring.blog.service.seguranca.GrupoPermissaoService;

@@ -8,5 +8,6 @@ public interface UsuarioPermissaoService {
 
     List<UsuarioPermissao> findAll();
     UsuarioPermissao findById(long id);
+    UsuarioPermissao findByUserName(String userName);
     UsuarioPermissao save(UsuarioPermissao usuarioPermissao);
 }
