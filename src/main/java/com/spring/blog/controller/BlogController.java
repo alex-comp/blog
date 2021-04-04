@@ -20,6 +20,16 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String getRoot(){
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/entrar",method = RequestMethod.GET)
+    public String entrar(){
+        return "loginBlog";
+    }
+
     @RequestMapping(value = "/posts",method = RequestMethod.GET)
     public ModelAndView getPosts(){
         ModelAndView mv = new ModelAndView("posts");

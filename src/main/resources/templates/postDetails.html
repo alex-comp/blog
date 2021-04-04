@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div th:insert="base.html :: header"></div>
+<div th:insert="publicBase.html :: header"></div>
 
 
 <main>
@@ -29,7 +29,7 @@
                 <span th:text="${post.autor}"></span>
                 <br>
                 <i class="material-icons">date_range</i>
-                <span th:text="${#temporals.format(post.data,'dd-MMM-YYY')}"></span>
+                <span th:text="${#temporals.format(post.data,'dd-MM-YYY')}"></span>
             </p>
             <section>
                 <p class="card-text" style="margin-top: 40px"><span th:utext="${post.texto}"></span></p>
