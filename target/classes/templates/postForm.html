@@ -25,7 +25,7 @@
         </nav>
         <div>
             <th:block th:include="mensagemValidacao"></th:block>
-            <form method="post">
+            <form action="/newPost" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="titulo" placeholder="Título *">
                 </div>
@@ -41,6 +41,7 @@
                     <button type="submit" class="btn btn-primary">Publicar</button>
                     <a href="/posts" class="btn btn-light" role="button">Cancelar</a>
                 </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             </form>
         </div>
 

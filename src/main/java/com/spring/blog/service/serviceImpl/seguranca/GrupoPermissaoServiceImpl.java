@@ -1,5 +1,6 @@
 package com.spring.blog.service.serviceImpl.seguranca;
 
+import com.spring.blog.model.geral.Grupo;
 import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.GrupoPermissao;
 import com.spring.blog.repository.seguranca.GrupoPermissaoRepository;
@@ -23,6 +24,11 @@ public class GrupoPermissaoServiceImpl implements GrupoPermissaoService {
     @Override
     public GrupoPermissao findById(long id) {
         return grupoPermissaoRepository.findById(id).get();
+    }
+
+    @Override
+    public List<GrupoPermissao> findAllByUsuario(Usuario usuario) {
+        return grupoPermissaoRepository.findAllByUsuario(usuario);
     }
 
     @Override

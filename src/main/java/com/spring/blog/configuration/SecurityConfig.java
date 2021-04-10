@@ -23,15 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("123"));
-    }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers(AUTH_LIST).permitAll()
+                .antMatchers(AUTH_LIST).permitAll().antMatchers("/newPost").hasRole("CRIAR_POST")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/entrar").permitAll().failureUrl("/entrar?error").permitAll().defaultSuccessUrl("/posts", true)
                 .and().logout().logoutSuccessUrl("/entrar?logout").permitAll();
