@@ -1,5 +1,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <script th:src="@{/js/jquery.slim.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <!--CSS-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
@@ -7,7 +9,7 @@
 </head>
 <body>
 
-    <div th:insert="publicBase.html :: header"></div>
+    <div th:insert="base.html :: header"></div>
 
     <section>
         <div class="container" style="width: 60%; padding-bottom: 30px;">
