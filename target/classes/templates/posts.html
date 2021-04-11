@@ -18,9 +18,6 @@
                     <li class="breadcrumb-item active" aria-current="page">Posts</li>
                 </ol>
             </nav>
-                <div sec:authorize="hasRole('CRIAR_POST')" style="display: flex;justify-content: flex-end">
-                    <a href="/newPost" class="btn btn-primary" type="submit" style="color: white;background-color:#343a40"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">add</i>Novo Post</a>
-                </div>
             <div class="card shadow-sm bg-white rounded" style="margin-top: 20px" th:each="post : ${posts}">
                 <div class="card-body">
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem">
