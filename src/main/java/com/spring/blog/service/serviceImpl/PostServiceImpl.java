@@ -19,6 +19,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllByDataDesc() {
+        return postRepository.findAllOrderByDataDesc();
+    }
+
+    @Override
     public Post findById(long id) {
         return postRepository.findById(id).get();
     }
