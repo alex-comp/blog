@@ -15,9 +15,9 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
-    ModelAndView getUsuarios() {
-        ModelAndView mv = new ModelAndView("usuarios");
+    @RequestMapping(value = "/listarUsuarios", method = RequestMethod.GET)
+    ModelAndView getListaUsuarios() {
+        ModelAndView mv = new ModelAndView("listaUsuarios");
         List<Usuario> usuarios = usuarioService.findAll();
         mv.addObject("usuarios",usuarios);
         return mv;

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <script th:src="@{/js/jquery.slim.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
+    <title>Lista de Posts</title>
+</head>
+<body>
+<div th:insert="base.html :: header"></div>
+
+<main>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="/posts">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Posts</li>
+            </ol>
+        </nav>
+        <h1>Lista de Posts</h1>
+        <div style="margin-top: 50px;">
+            <a href="#" class="btn btn-primary" style="float: right; margin-bottom: 10px; background: #343a40"><i class="material-icons" style="vertical-align: bottom; font-size: 25px;">add</i>Novo</a>
+            <table class="table table-striped" style="width: 100%">
+                <thead style="text-align: center" class="thead-dark table-bordered">
+                <tr>
+                    <th style="width: 25%" scope="col">Título</th>
+                    <th style="width: 25%" scope="col">Data</th>
+                    <th style="width: 25%" scope="col">Autor</th>
+                    <th style="width: 25%" scope="col">Ações</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                <tr th:each="post : ${posts}">
+                    <td style="padding-top: 20px" th:text="${post.titulo}"></td>
+                    <td style="padding-top: 20px" th:text="${#dates.format(post.data,'dd-MM-YYY')}"></td>
+                    <td style="padding-top: 20px" th:text="${post.autor}"></td>
+                    <td>
+                        <div class="row" style="margin-left: 0px; margin: auto; display: block">
+                            <a href="#" class="btn btn-info"><i title="Visualizar Post" class="material-icons"
+                                                                style="vertical-align: bottom">visibility</i></a>
+                            <a href="#" class="btn btn-primary"><i title="Editar Post" class="material-icons"
+                                                                   style="vertical-align: bottom">edit</i></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/posts" class="btn btn-primary"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</a>
+    </div>
+</main>
+</body>
+</html>
