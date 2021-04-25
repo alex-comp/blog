@@ -31,7 +31,7 @@ public class DummyData {
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
 
-    //@PostConstruct
+//    @PostConstruct
     public void createAdminUser(){
         //Criando usuario
         Usuario usuario = new Usuario();
@@ -41,9 +41,18 @@ public class DummyData {
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
         usuario = usuarioService.save(usuario);
 
+        //Criando usuario sem permissao
+        Usuario usuario2 = new Usuario();
+        usuario2.setAtivo(true);
+        usuario2.setNome("Test");
+        usuario2.setLogin("test");
+        usuario2.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario2);
+
         //Criando permissao
         Permissao permissao = new Permissao();
-        permissao.setNome("ROLE_CRIAR_POST");
+        permissao.setNome("CRIAR_POST");
+        permissao.setDescricao("Criação de Posts");
         permissao = permissaoService.save(permissao);
 
         //Criando grupo
