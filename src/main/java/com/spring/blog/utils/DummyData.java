@@ -31,7 +31,7 @@ public class DummyData {
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
 
-//    @PostConstruct
+    //    @PostConstruct
     public void createAdminUser(){
         //Criando usuario
         Usuario usuario = new Usuario();
@@ -48,6 +48,62 @@ public class DummyData {
         usuario2.setLogin("test");
         usuario2.setSenha(new BCryptPasswordEncoder().encode("test"));
         usuarioService.save(usuario2);
+
+        Usuario usuario3 = new Usuario();
+        usuario3.setAtivo(true);
+        usuario3.setNome("Test3");
+        usuario3.setLogin("test3");
+        usuario3.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario3);
+
+        Usuario usuario4 = new Usuario();
+        usuario4.setAtivo(true);
+        usuario4.setNome("Test4");
+        usuario4.setLogin("test4");
+        usuario4.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario4);
+
+        Usuario usuario5 = new Usuario();
+        usuario5.setAtivo(true);
+        usuario5.setNome("Test5");
+        usuario5.setLogin("test5");
+        usuario5.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario5);
+
+        Usuario usuario6 = new Usuario();
+        usuario6.setAtivo(true);
+        usuario6.setNome("Test6");
+        usuario6.setLogin("test6");
+        usuario6.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario6);
+
+        Usuario usuario7 = new Usuario();
+        usuario7.setAtivo(true);
+        usuario7.setNome("Test7");
+        usuario7.setLogin("test7");
+        usuario7.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario7);
+
+        Usuario usuario8 = new Usuario();
+        usuario8.setAtivo(true);
+        usuario8.setNome("Test8");
+        usuario8.setLogin("test8");
+        usuario8.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario8);
+
+        Usuario usuario9 = new Usuario();
+        usuario9.setAtivo(true);
+        usuario9.setNome("Test9");
+        usuario9.setLogin("test9");
+        usuario9.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario9);
+
+        Usuario usuario10 = new Usuario();
+        usuario10.setAtivo(true);
+        usuario10.setNome("Test10");
+        usuario10.setLogin("test10");
+        usuario10.setSenha(new BCryptPasswordEncoder().encode("test"));
+        usuarioService.save(usuario10);
 
         //Criando permissao
         Permissao permissao = new Permissao();
