@@ -30,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody style="text-align: center;">
-                <tr th:each="grupo : ${grupos}">
+                <tr th:each="grupo : ${grupos.content}">
                     <td style="padding-top: 20px" th:text="${grupo.nome}"></td>
                     <td>
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
@@ -43,6 +43,34 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="table-pagination text-center">
+                <ul class="pagination justify-content-center">
+                    <li style="margin-right: 2px;" th:class="${grupos.number eq 0} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not grupos.first}"
+                           th:href="@{${'/listarGrupos'}(page=${grupos.number},size=${grupos.size})}">Anterior</a>
+                        <a class="btn btn-light" th:if="${grupos.first}" href="javascript:void(0);">Anterior</a>
+                    </li>
+
+                    <li style="margin-left: 2px;margin-right: 2px;"
+                        th:each="pageNo : ${#numbers.sequence(0, grupos.totalPages - 1)}"
+                        th:class="${grupos.number eq pageNo}? 'active' : ''">
+                        <a class="btn btn-dark" th:if="${grupos.number  eq pageNo}" href="javascript:void(0);">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo)}"
+                           th:href="@{${'/listarGrupos'}(page=${pageNo+1},size=${grupos.size})}">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+
+                    </li>
+                    <li style="margin-left: 2px;"
+                        th:class="${grupos.number + 1 ge grupos.totalPages} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not grupos.last}"
+                           th:href="@{${'/listarGrupos'}(page=${grupos.number+2},size=${grupos.size})}">Proximo</a>
+                        <a class="btn btn-light" th:if="${grupos.last}" href="javascript:void(0);">Proximo</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <a href="/posts" class="btn btn-primary"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</a>
     </div>
