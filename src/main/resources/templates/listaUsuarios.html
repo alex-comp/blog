@@ -48,6 +48,34 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="table-pagination text-center">
+                <ul class="pagination justify-content-center">
+                    <li style="margin-right: 2px;" th:class="${usuarios.number eq 0} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not usuarios.first}"
+                           th:href="@{${'/listarUsuarios'}(page=${usuarios.number},size=${usuarios.size})}">Anterior</a>
+                        <a class="btn btn-light" th:if="${usuarios.first}" href="javascript:void(0);">Anterior</a>
+                    </li>
+
+                    <li style="margin-left: 2px;margin-right: 2px;"
+                        th:each="pageNo : ${#numbers.sequence(0, usuarios.totalPages - 1)}"
+                        th:class="${usuarios.number eq pageNo}? 'active' : ''">
+                        <a class="btn btn-dark" th:if="${usuarios.number  eq pageNo}" href="javascript:void(0);">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+                        <a class="btn btn-light" th:if="${not (usuarios.number  eq pageNo)}"
+                           th:href="@{${'/listarUsuarios'}(page=${pageNo+1},size=${usuarios.size})}">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+
+                    </li>
+                    <li style="margin-left: 2px;"
+                        th:class="${usuarios.number + 1 ge usuarios.totalPages} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not usuarios.last}"
+                           th:href="@{${'/listarUsuarios'}(page=${usuarios.number+2},size=${usuarios.size})}">Proximo</a>
+                        <a class="btn btn-light" th:if="${usuarios.last}" href="javascript:void(0);">Proximo</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <a href="/posts" class="btn btn-primary"><i class="material-icons"
                                                     style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</a>
