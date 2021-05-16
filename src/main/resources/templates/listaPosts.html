@@ -47,6 +47,34 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="table-pagination text-center">
+                <ul class="pagination justify-content-center">
+                    <li style="margin-right: 2px;" th:class="${posts.number eq 0} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not posts.first}"
+                           th:href="@{${'/listarPosts'}(page=${posts.number},size=${posts.size})}">Anterior</a>
+                        <a class="btn btn-light" th:if="${posts.first}" href="javascript:void(0);">Anterior</a>
+                    </li>
+
+                    <li style="margin-left: 2px;margin-right: 2px;"
+                        th:each="pageNo : ${#numbers.sequence(0, posts.totalPages - 1)}"
+                        th:class="${posts.number eq pageNo}? 'active' : ''">
+                        <a class="btn btn-dark" th:if="${posts.number  eq pageNo}" href="javascript:void(0);">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+                        <a class="btn btn-light" th:if="${not (posts.number  eq pageNo)}"
+                           th:href="@{${'/listarPosts'}(page=${pageNo+1},size=${posts.size})}">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+
+                    </li>
+                    <li style="margin-left: 2px;"
+                        th:class="${posts.number + 1 ge posts.totalPages} ? 'disabled' : ''">
+                        <a class="btn btn-light" th:if="${not posts.last}"
+                           th:href="@{${'/listarPosts'}(page=${posts.number+2},size=${posts.size})}">Proximo</a>
+                        <a class="btn btn-light" th:if="${posts.last}" href="javascript:void(0);">Proximo</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <a href="/posts" class="btn btn-primary"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</a>
     </div>
