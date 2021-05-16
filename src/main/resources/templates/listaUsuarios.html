@@ -62,7 +62,7 @@
                         <a class="btn btn-dark" th:if="${usuarios.number  eq pageNo}" href="javascript:void(0);">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
-                        <a class="btn btn-light" th:if="${not (usuarios.number  eq pageNo)}"
+                        <a class="btn btn-light" th:if="${not (usuarios.number  eq pageNo and not(pageNo eq -1))}"
                            th:href="@{${'/listarUsuarios'}(page=${pageNo+1},size=${usuarios.size})}">
                             <span th:text="${pageNo + 1}"></span>
                         </a>

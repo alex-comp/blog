@@ -57,7 +57,7 @@
                         <a class="btn btn-dark" th:if="${grupos.number  eq pageNo}" href="javascript:void(0);">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
-                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo)}"
+                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo and not(pageNo eq -1))}"
                            th:href="@{${'/listarGrupos'}(page=${pageNo+1},size=${grupos.size})}">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
