@@ -72,6 +72,6 @@ public class UsuarioController {
         usuarioGrupo.setGrupo(grupoService.findById(grupo.getId()));
         usuarioGrupo.setUsuario(novoUsuario);
         usuarioGrupoService.save(usuarioGrupo);
-        return "redirect:/usuario";
+        return "redirect:/listarUsuarios";
     }
 }
