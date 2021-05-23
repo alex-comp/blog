@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+    <script th:src="@{/js/jquery.slim.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+<div th:insert="base.html :: header"></div>
+
+<main>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="/posts">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cadastro de Usuário</li>
+            </ol>
+        </nav>
+        <h1>Cadastrar Usuário</h1>
+        <form action="/usuario" method="post" style="margin-top: 50px;">
+            <div style="margin-bottom: 10px">
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="usuarioNome">*Nome:</label>
+                        <input class="form-control" required id="usuarioNome" placeholder="Digite o Nome" type="text"
+                               th:field="${usuario.nome}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="usuarioLogin">*Login:</label>
+                        <input class="form-control" required id="usuarioLogin" placeholder="Digite o Login" type="text"
+                               th:field="${usuario.login}">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="usuarioSenha">*Senha:</label>
+                        <input class="form-control" required id="usuarioSenha" placeholder="Digite a Senha"
+                               type="password"
+                               th:field="${usuario.senha}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="usuarioGrupo">Grupo:</label>
+                        <select id="usuarioGrupo" class="form-control" th:field="${grupoId.id}">
+                            <option selected disabled value="">Selecione o Grupo</option>
+                            <option th:each="grupo : ${grupos}"
+                                    th:text="${grupo.nome}"
+                                    th:value="${grupo.id}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6" style="left: 20px;">
+                        <input class="form-check-input" type="checkbox" value="" id="usuarioCheck"
+                               th:field="${usuario.ativo}">
+                        <label class="form-check-label" for="usuarioCheck">Ativo:</label>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+            <button class="btn btn-secondary" onclick="goBack()">Cancelar</button>
+        </form>
+    </div>
+</main>
+<script>
+    function goBack(){
+        window.history.back();
+    }
+</script>
+</body>
+</html>
