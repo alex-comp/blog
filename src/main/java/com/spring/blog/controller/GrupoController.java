@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,18 +60,26 @@ public class GrupoController {
     }
 
     @RequestMapping(value = "/grupo",method = RequestMethod.POST)
-    String postGrupo(Grupo grupo,Long[] idsSelecionados){
-        Grupo novoGrupo = new Grupo();
+    String postGrupo(RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados){
+
+        Grupo novoGrupo = grupoService.findByName(grupo.getNome());
+        if(novoGrupo != null){
+            attributes.addFlashAttribute("mensagem","O nome inserido já existe!");
+            return "redirect:/grupo";
+        }
+        novoGrupo = new Grupo();
         novoGrupo.setNome(grupo.getNome());
         novoGrupo = grupoService.save(novoGrupo);
         Grupo finalNovoGrupo = novoGrupo;
-        Arrays.asList(idsSelecionados).forEach(id ->{
-            permissaoService.findById(id);
-            GrupoPermissao grupoPermissao = new GrupoPermissao();
-            grupoPermissao.setGrupo(finalNovoGrupo);
-            grupoPermissao.setPermissao(permissaoService.findById(id));
-            grupoPermissaoService.save(grupoPermissao);
-        });
+        if(idsSelecionados != null) {
+            Arrays.asList(idsSelecionados).forEach(id -> {
+                permissaoService.findById(id);
+                GrupoPermissao grupoPermissao = new GrupoPermissao();
+                grupoPermissao.setGrupo(finalNovoGrupo);
+                grupoPermissao.setPermissao(permissaoService.findById(id));
+                grupoPermissaoService.save(grupoPermissao);
+            });
+        }
         return "redirect:/listarGrupos";
     }
 }

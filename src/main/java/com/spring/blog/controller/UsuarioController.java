@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,8 +62,14 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/usuario",method = RequestMethod.POST)
-    String postUsuario(Usuario usuario, Grupo grupo){
-        Usuario novoUsuario = new Usuario();
+    String postUsuario(RedirectAttributes attributes, Usuario usuario, Grupo grupo){
+        Usuario novoUsuario = usuarioService.findByUserName(usuario.getLogin());
+        if(novoUsuario != null){
+            attributes.addFlashAttribute("mensagem","O login inserido já existe!");
+            return "redirect:/usuario";
+        }
+
+        novoUsuario = new Usuario();
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
         novoUsuario.setNome(usuario.getNome());
         novoUsuario.setLogin(usuario.getLogin());

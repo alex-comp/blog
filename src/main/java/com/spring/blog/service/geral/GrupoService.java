@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public interface GrupoService {
     List<Grupo> findAll();
+    Grupo findByName(String nome);
     Page<Grupo> findAllPaginated(int currentPage, int pageSize);
     Grupo findById(long id);
     Grupo save(Grupo grupo);

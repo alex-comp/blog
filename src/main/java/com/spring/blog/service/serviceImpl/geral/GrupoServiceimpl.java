@@ -24,6 +24,11 @@ public class GrupoServiceimpl implements GrupoService {
     }
 
     @Override
+    public Grupo findByName(String nome) {
+        return grupoRepository.findGrupoByNome(nome);
+    }
+
+    @Override
     public Page<Grupo> findAllPaginated(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage - 1,pageSize);
         Long total = grupoRepository.count();

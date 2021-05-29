@@ -11,4 +11,6 @@ public interface GrupoRepository extends JpaRepository<Grupo,Long> {
 
     @Query("SELECT gr FROM Grupo AS gr ORDER BY gr.nome ASC")
     List<Grupo> findAllOrderByNomeAsc(Pageable pageable);
+
+    Grupo findGrupoByNome(String nome);
 }
