@@ -101,14 +101,13 @@
         componentes2.innerHTML = tempHtml2;
     }
 
-    function selecionarTodos(MumtSelect){
-       let componente = document.getElementById(MumtSelect);
+    function selecionarTodos(MultSelect){
+       let componente = document.getElementById(MultSelect);
        let tempHtml;
         Array.prototype.forEach.call(componente.options, function (item){
             tempHtml += '<option selected value=' + item.value + '>' + item.text + '</option>'
         })
         componente.innerHTML = tempHtml;
-        console.log("passouaqui")
     }
 
 </script>
