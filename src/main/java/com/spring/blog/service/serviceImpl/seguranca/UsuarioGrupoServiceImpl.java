@@ -20,6 +20,11 @@ public class UsuarioGrupoServiceImpl implements UsuarioGrupoService {
     }
 
     @Override
+    public UsuarioGrupo findGruboByUsuario(Usuario usuario) {
+        return usuarioGrupoRepository.findUsuarioGrupoByUsuario(usuario);
+    }
+
+    @Override
     public UsuarioGrupo findById(long id) {
         return usuarioGrupoRepository.findById(id).get();
     }

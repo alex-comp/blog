@@ -45,8 +45,8 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-6">
-                        <label for="usuarioGrupo">Grupo:</label>
-                        <select id="usuarioGrupo" class="form-control" th:field="${grupoId.id}">
+                        <label for="usuarioGrupo">*Grupo:</label>
+                        <select id="usuarioGrupo" required class="form-control" th:field="${grupoId.id}">
                             <option selected disabled value="">Selecione o Grupo</option>
                             <option th:each="grupo : ${grupos}"
                                     th:text="${grupo.nome}"
@@ -58,7 +58,7 @@
                     <div class="form-group col-sm-6" style="left: 20px;">
                         <input class="form-check-input" type="checkbox" value="" id="usuarioCheck"
                                th:field="${usuario.ativo}">
-                        <label class="form-check-label" for="usuarioCheck">Ativo:</label>
+                        <label class="form-check-label" for="usuarioCheck">Ativo</label>
                     </div>
                 </div>
             </div>

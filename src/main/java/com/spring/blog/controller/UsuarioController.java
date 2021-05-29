@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,5 +80,15 @@ public class UsuarioController {
         usuarioGrupo.setUsuario(novoUsuario);
         usuarioGrupoService.save(usuarioGrupo);
         return "redirect:/listarUsuarios";
+    }
+
+    @RequestMapping(value = "/usuarioConsulta/{id}",method = RequestMethod.GET)
+    ModelAndView getUsuarioConsulta(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView("usuario/usuarioConsulta");
+        Usuario usuario = usuarioService.findById(id);
+        Grupo grupo = usuarioGrupoService.findGruboByUsuario(usuario).getGrupo();
+        mv.addObject("grupo",grupo);
+        mv.addObject("usuario",usuario);
+        return mv;
     }
 }
