@@ -36,7 +36,7 @@ public class GrupoController {
     @RequestMapping(value = "/listarGrupos",method = RequestMethod.GET)
     ModelAndView getListaGrupos(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size){
-        ModelAndView mv = new ModelAndView("listaGrupos");
+        ModelAndView mv = new ModelAndView("grupo/listaGrupos");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         Page<Grupo> grupos = grupoService.findAllPaginated(currentPage, pageSize);
@@ -51,7 +51,7 @@ public class GrupoController {
 
     @RequestMapping(value = "/grupo",method = RequestMethod.GET)
     ModelAndView getGrupo(){
-        ModelAndView mv = new ModelAndView("grupo");
+        ModelAndView mv = new ModelAndView("grupo/grupo");
         Grupo grupo = new Grupo();
         List<Permissao> permissoes = permissaoService.findAll();
         mv.addObject("permissoes",permissoes);

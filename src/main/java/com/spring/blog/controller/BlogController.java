@@ -41,7 +41,7 @@ public class BlogController {
     @RequestMapping(value = "/posts",method = RequestMethod.GET)
     public ModelAndView getPosts(@RequestParam("page") Optional<Integer> page,
                                  @RequestParam("size") Optional<Integer> size){
-        ModelAndView mv = new ModelAndView("posts");
+        ModelAndView mv = new ModelAndView("blog/posts");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         Page<Post> posts = postService.findAllPaginated(currentPage, pageSize);
@@ -56,7 +56,7 @@ public class BlogController {
 
     @RequestMapping(value = "/post/{id}",method = RequestMethod.GET)
     public ModelAndView getPostDetails(@PathVariable("id") long id){
-        ModelAndView mv = new ModelAndView("postDetails");
+        ModelAndView mv = new ModelAndView("blog/postDetails");
         Post post = postService.findById(id);
         mv.addObject("post", post);
         return mv;
@@ -65,7 +65,7 @@ public class BlogController {
     @RequestMapping(value = "/newPost",method = RequestMethod.GET)
     @PreAuthorize("hasRole('CRIAR_POST')")
     public String getPostForm(){
-        return "postForm";
+        return "blog/postForm";
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)

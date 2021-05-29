@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +35,7 @@ public class UsuarioController {
     @RequestMapping(value = "/listarUsuarios", method = RequestMethod.GET)
     ModelAndView getListaUsuarios(@RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size) {
-        ModelAndView mv = new ModelAndView("listaUsuarios");
+        ModelAndView mv = new ModelAndView("usuario/listaUsuarios");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         Page<Usuario> usuarios = usuarioService.findAllPaginated(currentPage, pageSize);
@@ -51,7 +50,7 @@ public class UsuarioController {
 
     @RequestMapping(value = "/usuario",method = RequestMethod.GET)
     ModelAndView getUsuario(){
-        ModelAndView mv = new ModelAndView("usuario");
+        ModelAndView mv = new ModelAndView("usuario/usuario");
         Usuario usuario = new Usuario();
         List<Grupo> grupos = grupoService.findAll();
         Grupo grupoId = new Grupo();

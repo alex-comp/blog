@@ -23,7 +23,7 @@ public class PostController {
     @RequestMapping(value = "/listarPosts",method = RequestMethod.GET)
     ModelAndView getListarPosts(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size){
-        ModelAndView mv = new ModelAndView("listaPosts");
+        ModelAndView mv = new ModelAndView("post/listaPosts");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         Page<Post> posts = postService.findAllPaginated(currentPage, pageSize);
