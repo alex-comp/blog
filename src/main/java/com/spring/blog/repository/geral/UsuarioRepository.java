@@ -12,4 +12,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     @Query("SELECT u FROM Usuario AS u ORDER BY u.nome ASC")
     List<Usuario> findAllOrderByNome(Pageable pageable);
+
+    Usuario findByNome(String nome);
 }

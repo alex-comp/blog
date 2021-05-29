@@ -21,6 +21,7 @@
         </nav>
         <h1>Lista de Usuários</h1>
         <div style="margin-top: 50px;">
+            <th:block th:include="mensagemValidacao"></th:block>
             <a href="/usuario" class="btn btn-primary" style="float: right; margin-bottom: 10px; background: #343a40"><i
                     class="material-icons" style="vertical-align: bottom; font-size: 25px;">add</i>Novo</a>
             <table class="table table-striped" style="width: 100%">
@@ -39,12 +40,39 @@
                     <td style="padding-top: 20px" th:text="${usuario.ativo ? 'Ativado' : 'Desativado'}"></td>
                     <td>
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
-                            <a th:href="${'/usuarioConsulta/' + usuario.id}" class="btn btn-info"><i title="Visualizar Usuário" class="material-icons"
-                                                                style="vertical-align: bottom">visibility</i></a>
-                            <a href="#" class="btn btn-primary"><i title="Editar Usuário" class="material-icons"
-                                                                   style="vertical-align: bottom">edit</i></a>
-                            <a href="#" class="btn btn-danger"><i title="Apagar Usuário" class="material-icons"
-                                                                   style="vertical-align: bottom">close</i></a>
+                                <a th:href="${'/usuarioConsulta/' + usuario.id}" class="btn btn-info"><i
+                                        title="Visualizar Usuário" class="material-icons"
+                                        style="vertical-align: bottom">visibility</i></a>
+                                <a href="#" class="btn btn-primary"><i title="Editar Usuário" class="material-icons"
+                                                                       style="vertical-align: bottom">edit</i></a>
+                                <button type="button" data-toggle="modal" th:data-target="${'#deletar-' + usuario.id}"
+                                        class="btn btn-danger"><i title="Apagar Usuario" class="material-icons"
+                                                                  style="vertical-align: bottom">close</i></button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:id="${'deletar-' + usuario.id}" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Alerta</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Tem certeza que deseja apagar o usuário?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form th:action="@{'/apagarUsuario/' + ${usuario.id}}" method="post">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Cancelar
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Apagar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </td>
                 </tr>
@@ -80,7 +108,8 @@
             </div>
         </div>
         <button onclick="goBack()" class="btn btn-primary"><i class="material-icons"
-                                                    style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</button>
+                                                              style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar
+        </button>
     </div>
 </main>
 <script>

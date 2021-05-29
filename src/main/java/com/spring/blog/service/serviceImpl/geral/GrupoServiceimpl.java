@@ -24,6 +24,11 @@ public class GrupoServiceimpl implements GrupoService {
     }
 
     @Override
+    public void deleteGrupo(Grupo grupo) {
+        grupoRepository.delete(grupo);
+    }
+
+    @Override
     public Grupo findByName(String nome) {
         return grupoRepository.findGrupoByNome(nome);
     }

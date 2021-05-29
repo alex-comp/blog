@@ -1,6 +1,7 @@
 package com.spring.blog.controller;
 
 import com.spring.blog.model.geral.Grupo;
+import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.GrupoPermissao;
 import com.spring.blog.model.seguranca.Permissao;
 import com.spring.blog.service.geral.GrupoService;
@@ -92,5 +93,17 @@ public class GrupoController {
         mv.addObject("gruposPermissoes",gruposPermissoes);
         mv.addObject("grupo", grupo);
         return mv;
+    }
+
+    @RequestMapping(value = "/apagarGrupo/{id}",method = RequestMethod.POST)
+    String postApagarUsuario(RedirectAttributes attributes,@PathVariable("id") Long id){
+        Grupo grupo = grupoService.findById(id);
+
+        if(!grupoPermissaoService.findAllByGrupo(grupo).isEmpty()){
+            attributes.addFlashAttribute("mensagem","Não é possível apagar o grupo pois existem itens no banco associados à ele");
+            return "redirect:/listarGrupos";
+        }
+        grupoService.deleteGrupo(grupo);
+        return "redirect:/listarGrupos";
     }
 }

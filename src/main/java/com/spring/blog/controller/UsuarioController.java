@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,23 +51,30 @@ public class UsuarioController {
         return mv;
     }
 
-    @RequestMapping(value = "/usuario",method = RequestMethod.GET)
-    ModelAndView getUsuario(){
+    @RequestMapping(value = "/usuario", method = RequestMethod.GET)
+    ModelAndView getUsuario() {
         ModelAndView mv = new ModelAndView("usuario/usuario");
         Usuario usuario = new Usuario();
         List<Grupo> grupos = grupoService.findAll();
         Grupo grupoId = new Grupo();
-        mv.addObject("grupos",grupos);
-        mv.addObject("grupoId",grupoId);
-        mv.addObject("usuario",usuario);
+        mv.addObject("grupos", grupos);
+        mv.addObject("grupoId", grupoId);
+        mv.addObject("usuario", usuario);
         return mv;
     }
 
-    @RequestMapping(value = "/usuario",method = RequestMethod.POST)
-    String postUsuario(RedirectAttributes attributes, Usuario usuario, Grupo grupo){
+    @RequestMapping(value = "/usuario", method = RequestMethod.POST)
+    String postUsuario(RedirectAttributes attributes, Usuario usuario, Grupo grupo) {
         Usuario novoUsuario = usuarioService.findByUserName(usuario.getLogin());
-        if(novoUsuario != null){
-            attributes.addFlashAttribute("mensagem","O login inserido já existe!");
+        if (novoUsuario != null) {
+            attributes.addFlashAttribute("mensagem", "O login inserido já existe!");
+            return "redirect:/usuario";
+        }
+
+        novoUsuario = usuarioService.findByNome(usuario.getNome());
+
+        if (novoUsuario != null) {
+            attributes.addFlashAttribute("mensagem", "O nome inserido já existe!");
             return "redirect:/usuario";
         }
 
@@ -73,22 +82,36 @@ public class UsuarioController {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
         novoUsuario.setNome(usuario.getNome());
         novoUsuario.setLogin(usuario.getLogin());
-        novoUsuario.setSenha(new BCryptPasswordEncoder().encode( usuario.getSenha()));
+        novoUsuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
         novoUsuario.setAtivo(usuario.getAtivo());
         novoUsuario = usuarioService.save(novoUsuario);
-        usuarioGrupo.setGrupo(grupoService.findById(grupo.getId()));
-        usuarioGrupo.setUsuario(novoUsuario);
-        usuarioGrupoService.save(usuarioGrupo);
+        if (grupo.getId() != null) {
+            usuarioGrupo.setGrupo(grupoService.findById(grupo.getId()));
+            usuarioGrupo.setUsuario(novoUsuario);
+            usuarioGrupoService.save(usuarioGrupo);
+        }
         return "redirect:/listarUsuarios";
     }
 
-    @RequestMapping(value = "/usuarioConsulta/{id}",method = RequestMethod.GET)
-    ModelAndView getUsuarioConsulta(@PathVariable("id") Long id){
+    @RequestMapping(value = "/usuarioConsulta/{id}", method = RequestMethod.GET)
+    ModelAndView getUsuarioConsulta(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("usuario/usuarioConsulta");
         Usuario usuario = usuarioService.findById(id);
-        Grupo grupo = usuarioGrupoService.findGruboByUsuario(usuario).getGrupo();
-        mv.addObject("grupo",grupo);
-        mv.addObject("usuario",usuario);
+        UsuarioGrupo usuarioGrupo = usuarioGrupoService.findGruboByUsuario(usuario);
+        Grupo grupo = usuarioGrupo == null ? new Grupo() : usuarioGrupo.getGrupo();
+        mv.addObject("grupo", grupo);
+        mv.addObject("usuario", usuario);
         return mv;
+    }
+
+    @RequestMapping(value = "/apagarUsuario/{id}", method = RequestMethod.POST)
+    String postApagarUsuario(RedirectAttributes attributes, @PathVariable("id") Long id) {
+        Usuario usuario = usuarioService.findById(id);
+        if (usuarioGrupoService.findGruboByUsuario(usuario) != null) {
+            attributes.addFlashAttribute("mensagem", "Não é possível apagar o usuário pois existem itens no banco associados à ele");
+            return "redirect:/listarUsuarios";
+        }
+        usuarioService.deleteUsuario(usuario);
+        return "redirect:/listarUsuarios";
     }
 }

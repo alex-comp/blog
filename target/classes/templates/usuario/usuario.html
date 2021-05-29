@@ -45,9 +45,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-6">
-                        <label for="usuarioGrupo">*Grupo:</label>
-                        <select id="usuarioGrupo" required class="form-control" th:field="${grupoId.id}">
-                            <option selected disabled value="">Selecione o Grupo</option>
+                        <label for="usuarioGrupo">Grupo:</label>
+                        <select id="usuarioGrupo" class="form-control" th:field="${grupoId.id}">
+                            <option selected value="">Selecione o Grupo</option>
                             <option th:each="grupo : ${grupos}"
                                     th:text="${grupo.nome}"
                                     th:value="${grupo.id}"></option>

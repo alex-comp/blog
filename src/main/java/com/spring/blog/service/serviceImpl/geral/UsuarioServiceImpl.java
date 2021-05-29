@@ -24,6 +24,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public void deleteUsuario(Usuario usuario) {
+        usuarioRepository.delete(usuario);
+    }
+
+    @Override
     public Page<Usuario> findAllPaginated(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage - 1,pageSize);
         Long total = usuarioRepository.count();
@@ -34,6 +39,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario findByUserName(String userName){
         return usuarioRepository.findByLogin(userName);
+    }
+
+    @Override
+    public Usuario findByNome(String nome) {
+        return usuarioRepository.findByNome(nome);
     }
 
     @Override
