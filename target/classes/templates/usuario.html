@@ -20,6 +20,7 @@
             </ol>
         </nav>
         <h1>Cadastrar Usuário</h1>
+        <th:block th:include="mensagemValidacao"></th:block>
         <form action="/usuario" method="post" style="margin-top: 50px;">
             <div style="margin-bottom: 10px">
                 <div class="form-row">
@@ -29,7 +30,6 @@
                                th:field="${usuario.nome}">
                     </div>
                 </div>
-                <th:block th:include="mensagemValidacao"></th:block>
                 <div class="form-row">
                     <div class="form-group col-sm-6">
                         <label for="usuarioLogin">*Login:</label>
