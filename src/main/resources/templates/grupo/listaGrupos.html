@@ -34,7 +34,7 @@
                     <td style="padding-top: 20px" th:text="${grupo.nome}"></td>
                     <td>
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
-                            <a href="#" class="btn btn-info"><i title="Visualizar Grupo" class="material-icons"
+                            <a th:href="${'/grupoConsulta/' + grupo.id}" class="btn btn-info"><i title="Visualizar Grupo" class="material-icons"
                                                                 style="vertical-align: bottom">visibility</i></a>
                             <a href="#" class="btn btn-primary"><i title="Editar Grupo" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>
@@ -57,7 +57,7 @@
                         <a class="btn btn-dark" th:if="${grupos.number  eq pageNo}" href="javascript:void(0);">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
-                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo and not(pageNo eq -1))}"
+                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo) and not(pageNo eq -1)}"
                            th:href="@{${'/listarGrupos'}(page=${pageNo+1},size=${grupos.size})}">
                             <span th:text="${pageNo + 1}"></span>
                         </a>

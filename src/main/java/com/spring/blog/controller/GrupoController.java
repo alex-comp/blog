@@ -9,6 +9,7 @@ import com.spring.blog.service.seguranca.PermissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,5 +82,15 @@ public class GrupoController {
             });
         }
         return "redirect:/listarGrupos";
+    }
+
+    @RequestMapping(value = "/grupoConsulta/{id}",method = RequestMethod.GET)
+    ModelAndView getGrupoConsulta(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView("grupo/grupoConsulta");
+        Grupo grupo = grupoService.findById(id);
+        List<GrupoPermissao> gruposPermissoes = grupoPermissaoService.findAllByGrupo(grupo);
+        mv.addObject("gruposPermissoes",gruposPermissoes);
+        mv.addObject("grupo", grupo);
+        return mv;
     }
 }

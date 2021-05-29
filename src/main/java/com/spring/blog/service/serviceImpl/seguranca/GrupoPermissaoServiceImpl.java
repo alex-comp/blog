@@ -22,6 +22,11 @@ public class GrupoPermissaoServiceImpl implements GrupoPermissaoService {
     }
 
     @Override
+    public List<GrupoPermissao> findAllByGrupo(Grupo grupo) {
+        return grupoPermissaoRepository.findAllByGrupo(grupo);
+    }
+
+    @Override
     public GrupoPermissao findById(long id) {
         return grupoPermissaoRepository.findById(id).get();
     }

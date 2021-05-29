@@ -1,5 +1,6 @@
 package com.spring.blog.repository.seguranca;
 
+import com.spring.blog.model.geral.Grupo;
 import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.GrupoPermissao;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,6 @@ public interface GrupoPermissaoRepository extends JpaRepository<GrupoPermissao,L
             "INNER JOIN UsuarioGrupo AS ug ON ug.grupo = g " +
             "INNER JOIN Usuario AS u ON ug.usuario = u WHERE u = ?1 ")
     List<GrupoPermissao> findAllByUsuario(Usuario usuario);
+
+    List<GrupoPermissao> findAllByGrupo(Grupo grupo);
 }

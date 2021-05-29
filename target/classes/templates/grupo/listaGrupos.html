@@ -34,7 +34,7 @@
                     <td style="padding-top: 20px" th:text="${grupo.nome}"></td>
                     <td>
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
-                            <a href="#" class="btn btn-info"><i title="Visualizar Grupo" class="material-icons"
+                            <a th:href="${'/grupoConsulta/' + grupo.id}" class="btn btn-info"><i title="Visualizar Grupo" class="material-icons"
                                                                 style="vertical-align: bottom">visibility</i></a>
                             <a href="#" class="btn btn-primary"><i title="Editar Grupo" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>

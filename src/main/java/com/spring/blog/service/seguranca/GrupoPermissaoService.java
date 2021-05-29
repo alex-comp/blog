@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public interface GrupoPermissaoService {
     List<GrupoPermissao> findAll();
+    List<GrupoPermissao> findAllByGrupo(Grupo grupo);
     GrupoPermissao findById(long id);
     List<GrupoPermissao> findAllByUsuario(Usuario usuario);
     GrupoPermissao save(GrupoPermissao grupoPermissao);

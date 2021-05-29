@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <script th:src="@{/js/jquery.slim.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+<div th:insert="base.html :: header"></div>
+
+<main>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="/posts">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Visualizar Grupo</li>
+            </ol>
+        </nav>
+        <h1>Visualizar Grupo</h1>
+        <div style="margin-bottom: 10px; margin-top: 50px">
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="grupoNome">*Nome:</label>
+                    <input class="form-control" readonly id="grupoNome" placeholder="Digite o Nome" type="text"
+                           th:field="${grupo.nome}">
+                </div>
+            </div>
+            <div class="row" style="padding-top: 3px; padding-bottom: 15px">
+                <div class="col-sm-6">
+                    <label>Permissões:</label>
+                    <select readonly   multiple class="form-control" style="height: 100%"
+                            id="permissaoSelectEsq">
+                        <option th:each="grupoPermissao : ${gruposPermissoes}"
+                                th:text="${grupoPermissao.permissao.descricao}"
+                                th:value="${grupoPermissao.permissao.id}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button onclick="goBack()" style="margin-top: 15px" class="btn btn-primary"><i class="material-icons" style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</button>
+    </div>
+</main>
+<script>
+    function goBack(){
+        window.history.back();
+    }
+</script>
+</body>
+</html>
