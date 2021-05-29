@@ -35,7 +35,7 @@
                 <small class="form-text text-muted">(*) Campos obrigatórios</small>
                 <div style="margin-top: 10px">
                     <button type="submit" class="btn btn-primary">Publicar</button>
-                    <button onclick="goBack()" class="btn btn-light" role="button">Cancelar</button>
+                    <button onclick="goBack()" type="button" class="btn btn-light">Cancelar</button>
                 </div>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             </form>
