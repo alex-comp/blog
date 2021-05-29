@@ -38,6 +38,8 @@
                                                                 style="vertical-align: bottom">visibility</i></a>
                             <a href="#" class="btn btn-primary"><i title="Editar Grupo" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>
+                            <a href="#" class="btn btn-danger"><i title="Apagar Grupo" class="material-icons"
+                                                                  style="vertical-align: bottom">close</i></a>
                         </div>
                     </td>
                 </tr>
@@ -57,7 +59,7 @@
                         <a class="btn btn-dark" th:if="${grupos.number  eq pageNo}" href="javascript:void(0);">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
-                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo and not(pageNo eq -1))}"
+                        <a class="btn btn-light" th:if="${not (grupos.number  eq pageNo) and not(pageNo eq -1)}"
                            th:href="@{${'/listarGrupos'}(page=${pageNo+1},size=${grupos.size})}">
                             <span th:text="${pageNo + 1}"></span>
                         </a>

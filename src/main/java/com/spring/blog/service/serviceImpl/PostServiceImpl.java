@@ -23,6 +23,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void deletePost(long id) {
+        Post post = postRepository.findById(id).get();
+        postRepository.delete(post);
+    }
+
+    @Override
     public Page<Post> findAllPaginated(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage - 1,pageSize);
         Long total = postRepository.count();

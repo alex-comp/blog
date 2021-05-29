@@ -38,10 +38,15 @@
                     <td style="padding-top: 20px" th:text="${post.autor}"></td>
                     <td>
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
+                            <form th:action="@{'/apagarPost/' + ${post.id}}" method="post">
                             <a th:href="${'/post/' + post.id}" class="btn btn-info"><i title="Visualizar Post" class="material-icons"
                                                                 style="vertical-align: bottom">visibility</i></a>
                             <a href="#" class="btn btn-primary"><i title="Editar Post" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>
+
+                                <button class="btn btn-danger"><i title="Apagar Post" class="material-icons"
+                                                                      style="vertical-align: bottom">close</i></button>
+                            </form>
                         </div>
                     </td>
                 </tr>

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PostService {
     List<Post> findAll();
+    void deletePost(long id);
     Page<Post> findAllPaginated(int currentPage, int pageSize);
     Post findById(long id);
     Post save(Post post);

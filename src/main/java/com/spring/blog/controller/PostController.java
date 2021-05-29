@@ -5,6 +5,7 @@ import com.spring.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,5 +35,11 @@ public class PostController {
         }
         mv.addObject("posts", posts);
         return mv;
+    }
+
+    @RequestMapping(value = "/apagarPost/{id}",method = RequestMethod.POST)
+    String postApagarPost(@PathVariable("id") Long id){
+        postService.deletePost(id);
+        return "redirect:/listarPosts";
     }
 }

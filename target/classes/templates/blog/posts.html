@@ -46,7 +46,7 @@
                         <a class="btn btn-dark" th:if="${posts.number  eq pageNo}" href="javascript:void(0);">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
-                        <a class="btn btn-light" th:if="${not ((posts.number eq pageNo) and not(pageNo eq -1))}"
+                        <a class="btn btn-light" th:if="${not (posts.number eq pageNo) and not((pageNo eq -1))}"
                            th:href="@{${'/posts'}(page=${pageNo+1},size=${posts.size})}">
                             <span th:text="${pageNo + 1}"></span>
                         </a>
