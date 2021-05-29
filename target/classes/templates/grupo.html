@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <script th:src="@{/js/jquery.slim.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/material-icons.css}" type="text/css">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+<div th:insert="base.html :: header"></div>
+
+<main>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="/posts">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cadastro de Grupo</li>
+            </ol>
+        </nav>
+        <h1>Cadastrar Grupo</h1>
+        <form action="/grupo" method="post" onsubmit="selecionarTodos('permissaoSelectDir')" style="margin-top: 50px;">
+            <div style="margin-bottom: 10px">
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="grupoNome">*Nome:</label>
+                        <input class="form-control" required id="grupoNome" placeholder="Digite o Nome" type="text"
+                               th:field="${grupo.nome}">
+                    </div>
+                </div>
+                <h5 style="margin-top: 20px">Permissões</h5>
+                <div class="row" style="padding-top: 3px; padding-bottom: 15px">
+                    <div class="col-sm">
+                        <select multiple class="form-control" style="height: 100%"
+                                id="permissaoSelectEsq">
+                            <option th:each="permissao : ${permissoes}"
+                                    th:text="${permissao.descricao}"
+                                    th:value="${permissao.id}"></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1 text-center" style="padding-top: 10px; padding-bottom: 10px">
+                        <div style="padding-bottom: 10px">
+                            <button class="btn btn-info" id="bt_unid_assist_dir" style="font-size: 13px" type="button"
+                                    onclick="trocar('permissaoSelectEsq','permissaoSelectDir',true)">
+                                >>
+                            </button>
+                        </div>
+                        <div style="padding-bottom: 10px">
+                            <button class="btn btn-info" id="bt_unid_assist_dir" style="font-size: 10px" type="button"
+                                    onclick="trocar('permissaoSelectEsq','permissaoSelectDir',false)">
+                                >
+                            </button>
+                        </div>
+                        <div style="padding-bottom: 10px">
+                            <button class="btn btn-info" id="bt_unid_assist_esq" style="font-size: 10px" type="button"
+                                    onclick="trocar('permissaoSelectDir','permissaoSelectEsq',false)">
+                                <
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-info" id="bt_unid_assist_esq" style="font-size: 13px" type="button"
+                                    onclick="trocar('permissaoSelectDir','permissaoSelectEsq',true)">
+                                <<
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-row col-sm">
+                        <select multiple class="form-control" style="height: 100%" name="idsSelecionados"
+                                id="permissaoSelectDir">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+            <button class="btn btn-secondary" onclick="goBack()">Cancelar</button>
+        </form>
+    </div>
+</main>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function trocar(select1, select2, todos) {
+        let componentes1 = document.getElementById(select1);
+        let componentes2 = document.getElementById(select2);
+        let tempHtml1;
+        let tempHtml2 = componentes2.innerHTML;
+        let itens = todos ? componentes1.options : componentes1.selectedOptions;
+        Array.prototype.forEach.call(componentes1.options, function (item) {
+            if (Array.from(itens).includes(item)) {
+                tempHtml2 += '<option value=' + item.value + '>' + item.text + '</option>'
+            } else {
+                tempHtml1 += '<option value=' + item.value + '>' + item.text + '</option>'
+            }
+        })
+        componentes1.innerHTML = tempHtml1;
+        componentes2.innerHTML = tempHtml2;
+    }
+
+    function selecionarTodos(MumtSelect){
+       let componente = document.getElementById(MumtSelect);
+       let tempHtml;
+        Array.prototype.forEach.call(componente.options, function (item){
+            tempHtml += '<option selected value=' + item.value + '>' + item.text + '</option>'
+        })
+        componente.innerHTML = tempHtml;
+        console.log("passouaqui")
+    }
+
+</script>
+</body>
+</html>

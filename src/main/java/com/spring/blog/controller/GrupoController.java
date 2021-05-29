@@ -1,8 +1,11 @@
 package com.spring.blog.controller;
 
-import com.spring.blog.model.Post;
 import com.spring.blog.model.geral.Grupo;
+import com.spring.blog.model.seguranca.GrupoPermissao;
+import com.spring.blog.model.seguranca.Permissao;
 import com.spring.blog.service.geral.GrupoService;
+import com.spring.blog.service.seguranca.GrupoPermissaoService;
+import com.spring.blog.service.seguranca.PermissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +25,12 @@ public class GrupoController {
 
     @Autowired
     GrupoService grupoService;
+
+    @Autowired
+    PermissaoService permissaoService;
+
+    @Autowired
+    GrupoPermissaoService grupoPermissaoService;
 
     @RequestMapping(value = "/listarGrupos",method = RequestMethod.GET)
     ModelAndView getListaGrupos(@RequestParam("page") Optional<Integer> page,
@@ -36,5 +46,31 @@ public class GrupoController {
         }
         mv.addObject("grupos", grupos);
         return mv;
+    }
+
+    @RequestMapping(value = "/grupo",method = RequestMethod.GET)
+    ModelAndView getGrupo(){
+        ModelAndView mv = new ModelAndView("grupo");
+        Grupo grupo = new Grupo();
+        List<Permissao> permissoes = permissaoService.findAll();
+        mv.addObject("permissoes",permissoes);
+        mv.addObject("grupo", grupo);
+        return mv;
+    }
+
+    @RequestMapping(value = "/grupo",method = RequestMethod.POST)
+    String postGrupo(Grupo grupo,Long[] idsSelecionados){
+        Grupo novoGrupo = new Grupo();
+        novoGrupo.setNome(grupo.getNome());
+        novoGrupo = grupoService.save(novoGrupo);
+        Grupo finalNovoGrupo = novoGrupo;
+        Arrays.asList(idsSelecionados).forEach(id ->{
+            permissaoService.findById(id);
+            GrupoPermissao grupoPermissao = new GrupoPermissao();
+            grupoPermissao.setGrupo(finalNovoGrupo);
+            grupoPermissao.setPermissao(permissaoService.findById(id));
+            grupoPermissaoService.save(grupoPermissao);
+        });
+        return "redirect:/listarGrupos";
     }
 }
