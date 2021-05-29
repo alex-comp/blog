@@ -77,9 +77,14 @@
                 </ul>
             </div>
         </div>
-        <a href="/posts" class="btn btn-primary"><i class="material-icons"
-                                                    style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</a>
+        <button onclick="goBack()" class="btn btn-primary"><i class="material-icons"
+                                                    style="vertical-align: bottom; font-size: 25px">arrow_back</i>Voltar</button>
     </div>
 </main>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

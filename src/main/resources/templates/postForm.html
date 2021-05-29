@@ -35,7 +35,7 @@
                 <small class="form-text text-muted">(*) Campos obrigatórios</small>
                 <div style="margin-top: 10px">
                     <button type="submit" class="btn btn-primary">Publicar</button>
-                    <a href="/posts" class="btn btn-light" role="button">Cancelar</a>
+                    <button onclick="goBack()" class="btn btn-light" role="button">Cancelar</button>
                 </div>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             </form>
@@ -45,6 +45,10 @@
 </section>
 
 <script>
+    function goBack() {
+        window.history.back();
+    }
+
     $('#summernote').summernote({
         placeholder: 'Texto *',
         tabsize: 2,
