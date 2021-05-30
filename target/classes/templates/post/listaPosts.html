@@ -42,10 +42,12 @@
                             <a th:href="${'/post/' + post.id}" class="btn btn-info"><i title="Visualizar Post"
                                                                                        class="material-icons"
                                                                                        style="vertical-align: bottom">visibility</i></a>
-                            <a th:href="${'/postEditar/' + post.id}" class="btn btn-primary"><i title="Editar Post" class="material-icons"
+                            <a sec:authorize="hasAnyAuthority('ADMIN','EDIT_POST')"
+                               th:href="${'/postEditar/' + post.id}" class="btn btn-primary"><i title="Editar Post" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>
 
-                            <button type="button" data-toggle="modal" th:data-target="${'#deletar-' + post.id}"
+                            <button sec:authorize="hasAnyAuthority('ADMIN','DELETE_POST')"
+                                    type="button" data-toggle="modal" th:data-target="${'#deletar-' + post.id}"
                                     class="btn btn-danger"><i title="Apagar Post" class="material-icons"
                                                               style="vertical-align: bottom">close</i></button>
                             <!-- Modal -->

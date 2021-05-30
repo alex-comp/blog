@@ -93,6 +93,16 @@ public class DummyData {
         permissaoService.save(permissao);
 
         permissao = new Permissao();
+        permissao.setNome("EDIT_POST");
+        permissao.setDescricao("Editar Post");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("DELETE_POST");
+        permissao.setDescricao("Apagar Post");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
         permissao.setNome("ADMIN");
         permissao.setDescricao("Controle de Tudo");
         permissao = permissaoService.save(permissao);

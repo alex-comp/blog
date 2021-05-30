@@ -86,6 +86,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/postEditar/{id}",method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_POST')")
     public ModelAndView getPostEdit(@PathVariable("id") Long id){
         ModelAndView mv = new ModelAndView("blog/postForm");
         Post post = postService.findById(id);
@@ -94,6 +95,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/postEditar/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_POST')")
     public String savePostEdit(@PathVariable("id") Long id ,@Valid Post post, BindingResult result, RedirectAttributes attributes){
         GpUserDetails Usuario = (GpUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(result.hasErrors()){

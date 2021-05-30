@@ -40,6 +40,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/apagarPost/{id}",method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','DELETE_POST')")
     String postApagarPost(@PathVariable("id") Long id){
         postService.deletePost(id);
         return "redirect:/listarPosts";
