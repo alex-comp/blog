@@ -25,11 +25,12 @@
         </nav>
         <div>
             <th:block th:include="mensagemValidacao"></th:block>
-            <form action="/newPost" method="post">
+            <form th:action="@{ ${post.id == null? '/newPost' : '/postEditar/' + post.id}}"
+                  method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="titulo" placeholder="Título *">
+                    <input type="text" th:field="${post.titulo}" class="form-control" name="titulo" placeholder="Título *">
                 </div>
-                <textarea id="summernote" type="text" class="form-control" name="texto"
+                <textarea id="summernote"  th:field="${post.texto}" type="text" class="form-control" name="texto"
                           placeholder="Texto *"></textarea>
 
                 <small class="form-text text-muted">(*) Campos obrigatórios</small>

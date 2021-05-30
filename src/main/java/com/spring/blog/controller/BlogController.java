@@ -55,7 +55,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/post/{id}",method = RequestMethod.GET)
-    public ModelAndView getPostDetails(@PathVariable("id") long id){
+    public ModelAndView getPost(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("blog/postDetails");
         Post post = postService.findById(id);
         mv.addObject("post", post);
@@ -64,8 +64,11 @@ public class BlogController {
 
     @RequestMapping(value = "/newPost",method = RequestMethod.GET)
     @PreAuthorize("hasRole('CRIAR_POST')")
-    public String getPostForm(){
-        return "blog/postForm";
+    public ModelAndView getPostForm(){
+        ModelAndView mv = new ModelAndView("blog/postForm");
+        Post post = new Post();
+        mv.addObject("post",post);
+        return mv;
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
@@ -79,6 +82,30 @@ public class BlogController {
         post.setAutor(Usuario.getNome());
         post.setData(new Date());
         postService.save(post);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/postEditar/{id}",method = RequestMethod.GET)
+    public ModelAndView getPostEdit(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView("blog/postForm");
+        Post post = postService.findById(id);
+        mv.addObject("post",post);
+        return mv;
+    }
+
+    @RequestMapping(value = "/postEditar/{id}", method = RequestMethod.POST)
+    public String savePostEdit(@PathVariable("id") Long id ,@Valid Post post, BindingResult result, RedirectAttributes attributes){
+        GpUserDetails Usuario = (GpUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(result.hasErrors()){
+            attributes.addFlashAttribute("mensagem","Verifique se os campos obrigatorios foram preenchidos");
+            return "redirect:/postEditar/" + id;
+        }
+        Post postSalvar = postService.findById(id);
+        postSalvar.setAutor(Usuario.getNome());
+        postSalvar.setData(new Date());
+        postSalvar.setTexto(post.getTexto());
+        postSalvar.setTitulo(post.getTitulo());
+        postService.save(postSalvar);
         return "redirect:/posts";
     }
 }
