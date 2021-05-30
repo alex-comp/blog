@@ -27,6 +27,11 @@ public class GrupoPermissaoServiceImpl implements GrupoPermissaoService {
     }
 
     @Override
+    public GrupoPermissao findByGrupoAndPermissao(Grupo grupo, long idPermissao) {
+        return grupoPermissaoRepository.findByGrupoAndPermissaoId(grupo,idPermissao);
+    }
+
+    @Override
     public GrupoPermissao findById(long id) {
         return grupoPermissaoRepository.findById(id).get();
     }
@@ -39,5 +44,10 @@ public class GrupoPermissaoServiceImpl implements GrupoPermissaoService {
     @Override
     public GrupoPermissao save(GrupoPermissao grupoPermissao) {
         return grupoPermissaoRepository.save(grupoPermissao);
+    }
+
+    @Override
+    public void deleteGrupoPermissao(GrupoPermissao grupoPermissao) {
+        grupoPermissaoRepository.delete(grupoPermissao);
     }
 }

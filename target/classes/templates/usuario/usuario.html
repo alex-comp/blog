@@ -21,7 +21,8 @@
         </nav>
         <h1>Cadastrar Usuário</h1>
         <th:block th:include="mensagemValidacao"></th:block>
-        <form th:action="@{ ${usuario.id == null? '/usuario' : '/usuario/' + usuario.id}}" method="post" style="margin-top: 50px;">
+        <form th:action="@{ ${usuario.id == null? '/usuario' : '/usuario/' + usuario.id}}"
+              method="post" style="margin-top: 50px;">
             <div style="margin-bottom: 10px">
                 <div class="form-row">
                     <div class="form-group col-sm-12">

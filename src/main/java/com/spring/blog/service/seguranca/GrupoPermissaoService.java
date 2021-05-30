@@ -11,7 +11,9 @@ import java.util.List;
 public interface GrupoPermissaoService {
     List<GrupoPermissao> findAll();
     List<GrupoPermissao> findAllByGrupo(Grupo grupo);
+    GrupoPermissao findByGrupoAndPermissao(Grupo grupo,long idPermissao);
     GrupoPermissao findById(long id);
     List<GrupoPermissao> findAllByUsuario(Usuario usuario);
     GrupoPermissao save(GrupoPermissao grupoPermissao);
+    void deleteGrupoPermissao(GrupoPermissao grupoPermissao);
 }

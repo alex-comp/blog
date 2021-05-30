@@ -21,7 +21,8 @@
         </nav>
         <h1>Cadastrar Grupo</h1>
         <th:block th:include="mensagemValidacao"></th:block>
-        <form action="/grupo" method="post" onsubmit="selecionarTodos('permissaoSelectDir')" style="margin-top: 50px;">
+        <form th:action="@{ ${grupo.id == null? '/grupo' : '/grupo/' + grupo.id}}"
+              method="post" onsubmit="selecionarTodos('permissaoSelectDir'); selecionarTodos('permissaoSelectEsq')" style="margin-top: 50px;">
             <div style="margin-bottom: 10px">
                 <div class="form-row">
                     <div class="form-group col-sm-12">
@@ -33,7 +34,7 @@
                 <label>Permissões:</label>
                 <div class="row" style="padding-top: 3px; padding-bottom: 15px">
                     <div class="col-sm">
-                        <select multiple class="form-control" style="height: 100%"
+                        <select multiple class="form-control" style="height: 100%" name="idsNaoSelecionados"
                                 id="permissaoSelectEsq">
                             <option th:each="permissao : ${permissoes}"
                                     th:text="${permissao.descricao}"
@@ -69,6 +70,10 @@
                     <div class="form-row col-sm">
                         <select multiple class="form-control" style="height: 100%" name="idsSelecionados"
                                 id="permissaoSelectDir">
+                            <option th:if="${!permissoesEscolhidas.isEmpty()}"
+                                    th:each="permissaoEscolhida : ${permissoesEscolhidas}"
+                                    th:text="${permissaoEscolhida.descricao}"
+                                    th:value="${permissaoEscolhida.id}"></option>
                         </select>
                     </div>
                 </div>

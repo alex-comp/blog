@@ -16,4 +16,6 @@ public interface GrupoPermissaoRepository extends JpaRepository<GrupoPermissao,L
     List<GrupoPermissao> findAllByUsuario(Usuario usuario);
 
     List<GrupoPermissao> findAllByGrupo(Grupo grupo);
+
+    GrupoPermissao findByGrupoAndPermissaoId(Grupo grupo,long idPermissao);
 }

@@ -35,9 +35,9 @@ public class GrupoController {
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
 
-    @RequestMapping(value = "/listarGrupos",method = RequestMethod.GET)
+    @RequestMapping(value = "/listarGrupos", method = RequestMethod.GET)
     ModelAndView getListaGrupos(@RequestParam("page") Optional<Integer> page,
-                                @RequestParam("size") Optional<Integer> size){
+                                @RequestParam("size") Optional<Integer> size) {
         ModelAndView mv = new ModelAndView("grupo/listaGrupos");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
@@ -51,29 +51,29 @@ public class GrupoController {
         return mv;
     }
 
-    @RequestMapping(value = "/grupo",method = RequestMethod.GET)
-    ModelAndView getGrupo(){
+    @RequestMapping(value = "/grupo", method = RequestMethod.GET)
+    ModelAndView getGrupo() {
         ModelAndView mv = new ModelAndView("grupo/grupo");
         Grupo grupo = new Grupo();
         List<Permissao> permissoes = permissaoService.findAll();
-        mv.addObject("permissoes",permissoes);
+        mv.addObject("permissoes", permissoes);
         mv.addObject("grupo", grupo);
         return mv;
     }
 
-    @RequestMapping(value = "/grupo",method = RequestMethod.POST)
-    String postGrupo(RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados){
+    @RequestMapping(value = "/grupo", method = RequestMethod.POST)
+    String postGrupo(RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados) {
 
         Grupo novoGrupo = grupoService.findByName(grupo.getNome());
-        if(novoGrupo != null){
-            attributes.addFlashAttribute("mensagem","O nome inserido já existe!");
+        if (novoGrupo != null) {
+            attributes.addFlashAttribute("mensagem", "O nome inserido já existe!");
             return "redirect:/grupo";
         }
         novoGrupo = new Grupo();
         novoGrupo.setNome(grupo.getNome());
         novoGrupo = grupoService.save(novoGrupo);
         Grupo finalNovoGrupo = novoGrupo;
-        if(idsSelecionados != null) {
+        if (idsSelecionados != null) {
             Arrays.asList(idsSelecionados).forEach(id -> {
                 permissaoService.findById(id);
                 GrupoPermissao grupoPermissao = new GrupoPermissao();
@@ -85,25 +85,71 @@ public class GrupoController {
         return "redirect:/listarGrupos";
     }
 
-    @RequestMapping(value = "/grupoConsulta/{id}",method = RequestMethod.GET)
-    ModelAndView getGrupoConsulta(@PathVariable("id") Long id){
+    @RequestMapping(value = "/grupoConsulta/{id}", method = RequestMethod.GET)
+    ModelAndView getGrupoConsulta(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("grupo/grupoConsulta");
         Grupo grupo = grupoService.findById(id);
         List<GrupoPermissao> gruposPermissoes = grupoPermissaoService.findAllByGrupo(grupo);
-        mv.addObject("gruposPermissoes",gruposPermissoes);
+        mv.addObject("gruposPermissoes", gruposPermissoes);
         mv.addObject("grupo", grupo);
         return mv;
     }
 
-    @RequestMapping(value = "/apagarGrupo/{id}",method = RequestMethod.POST)
-    String postApagarUsuario(RedirectAttributes attributes,@PathVariable("id") Long id){
+    @RequestMapping(value = "/apagarGrupo/{id}", method = RequestMethod.POST)
+    String postApagarUsuario(RedirectAttributes attributes, @PathVariable("id") Long id) {
         Grupo grupo = grupoService.findById(id);
 
-        if(!grupoPermissaoService.findAllByGrupo(grupo).isEmpty()){
-            attributes.addFlashAttribute("mensagem","Não é possível apagar o grupo pois existem itens no banco associados à ele");
+        if (!grupoPermissaoService.findAllByGrupo(grupo).isEmpty()) {
+            attributes.addFlashAttribute("mensagem", "Não é possível apagar o grupo pois existem itens no banco associados à ele");
             return "redirect:/listarGrupos";
         }
         grupoService.deleteGrupo(grupo);
+        return "redirect:/listarGrupos";
+    }
+
+    @RequestMapping(value = "/grupo/{id}", method = RequestMethod.GET)
+    ModelAndView getGrupoEditar(@PathVariable("id") Long id) {
+        ModelAndView mv = new ModelAndView("grupo/grupo");
+        Grupo grupo = grupoService.findById(id);
+        List<Permissao> permissoesNaoEscolhidas = permissaoService.findPermissoesNaoEscolhidas(grupo);
+        List<Permissao> permissoesEscolhidas = permissaoService.findPermissoesEscolhidas(grupo);
+        mv.addObject("permissoes", permissoesNaoEscolhidas);
+        mv.addObject("permissoesEscolhidas", permissoesEscolhidas);
+        mv.addObject("grupo", grupo);
+        return mv;
+    }
+
+    @RequestMapping(value = "/grupo/{id}", method = RequestMethod.POST)
+    String postGrupoEditar(@PathVariable("id") Long id, RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados, Long[] idsNaoSelecionados) {
+
+        Grupo novoGrupo = grupoService.findByName(grupo.getNome());
+        if (novoGrupo != null && novoGrupo.getId() != id) {
+            attributes.addFlashAttribute("mensagem", "O nome inserido já existe!");
+            return "redirect:/grupo/" + id;
+        }
+        novoGrupo = grupoService.findById(id);
+        novoGrupo.setNome(grupo.getNome());
+        novoGrupo = grupoService.save(novoGrupo);
+        Grupo finalNovoGrupo = novoGrupo;
+        if (idsNaoSelecionados != null) {
+            Arrays.asList(idsNaoSelecionados).forEach(idNaoSelecionados -> {
+                GrupoPermissao grupoPermissao = grupoPermissaoService.findByGrupoAndPermissao(finalNovoGrupo, idNaoSelecionados);
+                if (grupoPermissao != null) {
+                    grupoPermissaoService.deleteGrupoPermissao(grupoPermissao);
+                }
+            });
+        }
+        if (idsSelecionados != null) {
+            Arrays.asList(idsSelecionados).forEach(idSelecionado -> {
+                GrupoPermissao grupoPermissao = grupoPermissaoService.findByGrupoAndPermissao(finalNovoGrupo, idSelecionado);
+                if (grupoPermissao == null) {
+                    GrupoPermissao grupoPermissaoSalvar = new GrupoPermissao();
+                    grupoPermissaoSalvar.setGrupo(finalNovoGrupo);
+                    grupoPermissaoSalvar.setPermissao(permissaoService.findById(idSelecionado));
+                    grupoPermissaoService.save(grupoPermissaoSalvar);
+                }
+            });
+        }
         return "redirect:/listarGrupos";
     }
 }
