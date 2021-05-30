@@ -157,6 +157,7 @@ public class GrupoController {
                 }
             });
         }
+        attributes.addFlashAttribute("mensagem", "E necessario deslogar e logar novamente para que as mudanças tenham efeito!");
         return "redirect:/listarGrupos";
     }
 }
