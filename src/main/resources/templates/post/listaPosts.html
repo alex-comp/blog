@@ -21,7 +21,7 @@
         </nav>
         <h1>Lista de Posts</h1>
         <div style="margin-top: 50px;">
-            <a href="/newPost" sec:authorize="hasRole('CRIAR_POST')" class="btn btn-primary"
+            <a href="/newPost" sec:authorize="hasAnyAuthority('ADMIN','CRIAR_POST')" class="btn btn-primary"
                style="float: right; margin-bottom: 10px; background: #343a40"><i class="material-icons" style="vertical-align: bottom; font-size: 25px;">add</i>Novo</a>
             <table class="table table-striped" style="width: 100%">
                 <thead style="text-align: center" class="thead-dark table-bordered">

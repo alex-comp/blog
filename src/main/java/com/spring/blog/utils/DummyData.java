@@ -41,10 +41,35 @@ public class DummyData {
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
         usuario = usuarioService.save(usuario);
 
-        //Criando permissao
+        //Criando permissoes
         Permissao permissao = new Permissao();
-        permissao.setNome("ROLE_CRIAR_POST");
+        permissao.setNome("CRIAR_POST");
         permissao.setDescricao("Criação de Posts");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("GERENC_USUARIO");
+        permissao.setDescricao("Gerenciar Usuários");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("CADASTRO_USUARIO");
+        permissao.setDescricao("Cadastrar Usuários");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("GERENC_GRUPO");
+        permissao.setDescricao("Gerenciar Grupo");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("CADASTRO_FRUPO");
+        permissao.setDescricao("Cadastrar Grupo");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("ADMIN");
+        permissao.setDescricao("Controle de Tudo");
         permissao = permissaoService.save(permissao);
 
         //Criando grupo

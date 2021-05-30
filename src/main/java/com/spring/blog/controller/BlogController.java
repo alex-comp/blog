@@ -63,7 +63,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/newPost",method = RequestMethod.GET)
-    @PreAuthorize("hasRole('CRIAR_POST')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CRIAR_POST')")
     public ModelAndView getPostForm(){
         ModelAndView mv = new ModelAndView("blog/postForm");
         Post post = new Post();
@@ -72,7 +72,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('CRIAR_POST')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CRIAR_POST')")
     public String savePost(@Valid Post post, BindingResult result, RedirectAttributes attributes){
         GpUserDetails Usuario = (GpUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(result.hasErrors()){

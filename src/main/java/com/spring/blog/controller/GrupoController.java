@@ -9,6 +9,7 @@ import com.spring.blog.service.seguranca.GrupoPermissaoService;
 import com.spring.blog.service.seguranca.PermissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class GrupoController {
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_GRUPO')")
     @RequestMapping(value = "/listarGrupos", method = RequestMethod.GET)
     ModelAndView getListaGrupos(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size) {
@@ -51,6 +53,7 @@ public class GrupoController {
         return mv;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     @RequestMapping(value = "/grupo", method = RequestMethod.GET)
     ModelAndView getGrupo() {
         ModelAndView mv = new ModelAndView("grupo/grupo");
@@ -61,6 +64,7 @@ public class GrupoController {
         return mv;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     @RequestMapping(value = "/grupo", method = RequestMethod.POST)
     String postGrupo(RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados) {
 

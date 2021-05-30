@@ -8,6 +8,7 @@ import com.spring.blog.service.geral.UsuarioService;
 import com.spring.blog.service.seguranca.UsuarioGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class UsuarioController {
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_USUARIO')")
     @RequestMapping(value = "/listarUsuarios", method = RequestMethod.GET)
     ModelAndView getListaUsuarios(@RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size) {
@@ -49,6 +51,7 @@ public class UsuarioController {
         return mv;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     @RequestMapping(value = "/usuario", method = RequestMethod.GET)
     ModelAndView getUsuario() {
         ModelAndView mv = new ModelAndView("usuario/usuario");
@@ -61,6 +64,7 @@ public class UsuarioController {
         return mv;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     @RequestMapping(value = "/usuario", method = RequestMethod.POST)
     String postUsuario(RedirectAttributes attributes, Usuario usuario, Grupo grupo) {
         Usuario novoUsuario = usuarioService.findByUserName(usuario.getLogin());
