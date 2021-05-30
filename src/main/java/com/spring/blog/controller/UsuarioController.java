@@ -34,8 +34,8 @@ public class UsuarioController {
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_USUARIO')")
     @RequestMapping(value = "/listarUsuarios", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_USUARIO')")
     ModelAndView getListaUsuarios(@RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size) {
         ModelAndView mv = new ModelAndView("usuario/listaUsuarios");
@@ -51,8 +51,8 @@ public class UsuarioController {
         return mv;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     @RequestMapping(value = "/usuario", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     ModelAndView getUsuario() {
         ModelAndView mv = new ModelAndView("usuario/usuario");
         Usuario usuario = new Usuario();
@@ -64,8 +64,8 @@ public class UsuarioController {
         return mv;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     @RequestMapping(value = "/usuario", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_USUARIO')")
     String postUsuario(RedirectAttributes attributes, Usuario usuario, Grupo grupo) {
         Usuario novoUsuario = usuarioService.findByUserName(usuario.getLogin());
         if (novoUsuario != null) {
@@ -107,6 +107,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/apagarUsuario/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','DELETE_USER')")
     String postApagarUsuario(RedirectAttributes attributes, @PathVariable("id") Long id) {
         Usuario usuario = usuarioService.findById(id);
         if (usuarioGrupoService.findGruboByUsuario(usuario) != null) {
@@ -118,6 +119,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_USER')")
     ModelAndView getEditarUsuario(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("usuario/usuario");
         Usuario usuario = usuarioService.findById(id);
@@ -131,6 +133,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/usuario/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_USER')")
     String postUsuario(@PathVariable("id") Long id,RedirectAttributes attributes, Usuario usuario, Grupo grupo) {
         Usuario novoUsuario = usuarioService.findByUserName(usuario.getLogin());
         if (novoUsuario != null && novoUsuario.getId() != id) {

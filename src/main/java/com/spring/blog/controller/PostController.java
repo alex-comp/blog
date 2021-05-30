@@ -22,8 +22,8 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_POST')")
     @RequestMapping(value = "/listarPosts",method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_POST')")
     ModelAndView getListarPosts(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size){
         ModelAndView mv = new ModelAndView("post/listaPosts");

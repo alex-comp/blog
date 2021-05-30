@@ -36,8 +36,8 @@ public class GrupoController {
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_GRUPO')")
     @RequestMapping(value = "/listarGrupos", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_GRUPO')")
     ModelAndView getListaGrupos(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size) {
         ModelAndView mv = new ModelAndView("grupo/listaGrupos");
@@ -53,8 +53,8 @@ public class GrupoController {
         return mv;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     @RequestMapping(value = "/grupo", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     ModelAndView getGrupo() {
         ModelAndView mv = new ModelAndView("grupo/grupo");
         Grupo grupo = new Grupo();
@@ -64,8 +64,8 @@ public class GrupoController {
         return mv;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     @RequestMapping(value = "/grupo", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','CADASTRO_FRUPO')")
     String postGrupo(RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados) {
 
         Grupo novoGrupo = grupoService.findByName(grupo.getNome());

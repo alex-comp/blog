@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<head>
+<head xmlns:sec="http://www.w3.org/1999/xhtml">
     <script th:src="@{/js/jquery.slim.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
 
@@ -43,9 +43,9 @@
                                 <a th:href="${'/usuarioConsulta/' + usuario.id}" class="btn btn-info"><i
                                         title="Visualizar Usuário" class="material-icons"
                                         style="vertical-align: bottom">visibility</i></a>
-                                <a th:href="${'/usuario/' + usuario.id}" class="btn btn-primary"><i title="Editar Usuário" class="material-icons"
+                                <a sec:authorize="hasAnyAuthority('ADMIN','EDIT_USER')" th:href="${'/usuario/' + usuario.id}" class="btn btn-primary"><i title="Editar Usuário" class="material-icons"
                                                                        style="vertical-align: bottom">edit</i></a>
-                                <button type="button" data-toggle="modal" th:data-target="${'#deletar-' + usuario.id}"
+                                <button sec:authorize="hasAnyAuthority('ADMIN','DELETE_USER')" type="button" data-toggle="modal" th:data-target="${'#deletar-' + usuario.id}"
                                         class="btn btn-danger"><i title="Apagar Usuario" class="material-icons"
                                                                   style="vertical-align: bottom">close</i></button>
                                 <!-- Modal -->
