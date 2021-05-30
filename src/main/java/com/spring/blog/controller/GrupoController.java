@@ -1,12 +1,12 @@
 package com.spring.blog.controller;
 
 import com.spring.blog.model.geral.Grupo;
-import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.GrupoPermissao;
 import com.spring.blog.model.seguranca.Permissao;
 import com.spring.blog.service.geral.GrupoService;
 import com.spring.blog.service.seguranca.GrupoPermissaoService;
 import com.spring.blog.service.seguranca.PermissaoService;
+import com.spring.blog.service.seguranca.UsuarioGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +35,9 @@ public class GrupoController {
 
     @Autowired
     GrupoPermissaoService grupoPermissaoService;
+
+    @Autowired
+    UsuarioGrupoService usuarioGrupoService;
 
     @RequestMapping(value = "/listarGrupos", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_GRUPO')")
@@ -104,7 +107,7 @@ public class GrupoController {
     String postApagarUsuario(RedirectAttributes attributes, @PathVariable("id") Long id) {
         Grupo grupo = grupoService.findById(id);
 
-        if (!grupoPermissaoService.findAllByGrupo(grupo).isEmpty()) {
+        if (!grupoPermissaoService.findAllByGrupo(grupo).isEmpty() || !usuarioGrupoService.findAllByGrupo(grupo).isEmpty()) {
             attributes.addFlashAttribute("mensagem", "Não é possível apagar o grupo pois existem itens no banco associados à ele");
             return "redirect:/listarGrupos";
         }

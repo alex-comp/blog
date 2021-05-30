@@ -1,5 +1,6 @@
 package com.spring.blog.service.serviceImpl.seguranca;
 
+import com.spring.blog.model.geral.Grupo;
 import com.spring.blog.model.geral.Usuario;
 import com.spring.blog.model.seguranca.UsuarioGrupo;
 import com.spring.blog.repository.seguranca.UsuarioGrupoRepository;
@@ -17,6 +18,11 @@ public class UsuarioGrupoServiceImpl implements UsuarioGrupoService {
     @Override
     public List<UsuarioGrupo> findAll() {
         return usuarioGrupoRepository.findAll();
+    }
+
+    @Override
+    public List<UsuarioGrupo> findAllByGrupo(Grupo grupo) {
+        return usuarioGrupoRepository.findAllByGrupo(grupo);
     }
 
     @Override
