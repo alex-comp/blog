@@ -43,11 +43,6 @@ public class DummyData {
 
         //Criando permissoes
         Permissao permissao = new Permissao();
-        permissao.setNome("CRIAR_POST");
-        permissao.setDescricao("Criação de Posts");
-        permissaoService.save(permissao);
-
-        permissao = new Permissao();
         permissao.setNome("GERENC_USUARIO");
         permissao.setDescricao("Gerenciar Usuários");
         permissaoService.save(permissao);
@@ -65,6 +60,16 @@ public class DummyData {
         permissao = new Permissao();
         permissao.setNome("CADASTRO_FRUPO");
         permissao.setDescricao("Cadastrar Grupo");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("GERENC_POST");
+        permissao.setDescricao("Gerenciar Posts");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("CRIAR_POST");
+        permissao.setDescricao("Criar Posts");
         permissaoService.save(permissao);
 
         permissao = new Permissao();

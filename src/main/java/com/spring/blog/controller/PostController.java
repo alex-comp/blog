@@ -4,6 +4,7 @@ import com.spring.blog.model.Post;
 import com.spring.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class PostController {
     @Autowired
     PostService postService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENC_POST')")
     @RequestMapping(value = "/listarPosts",method = RequestMethod.GET)
     ModelAndView getListarPosts(@RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size){

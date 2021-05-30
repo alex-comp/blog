@@ -22,12 +22,12 @@
                              <a sec:authorize="hasAnyAuthority('ADMIN','CADASTRO_FRUPO')" class="dropdown-item" href="/grupo">Cadastrar Grupo</a>
                          </div>
                      </li>
-                     <li class="nav-item dropdown">
+                     <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST','CRIAR_POST')" class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPosts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Posts
                          </a>
                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                             <a class="dropdown-item" href="/listarPosts">Gerenciar Posts</a>
+                             <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST')" class="dropdown-item" href="/listarPosts">Gerenciar Posts</a>
                              <a sec:authorize="hasAnyAuthority('ADMIN','CRIAR_POST')" class="dropdown-item" href="/newPost">Cadastrar Post</a>
                          </div>
                      </li>
