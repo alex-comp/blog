@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -23,6 +25,11 @@ public class PermissaoServiceImpl implements PermissaoService {
     @Override
     public List<Permissao> findAll() {
         return permissaoRepository.findAll();
+    }
+
+    @Override
+    public List<Permissao> findAllOrderDescricao() {
+        return permissaoRepository.findAllOrderAsc();
     }
 
     @Override

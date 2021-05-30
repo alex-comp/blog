@@ -58,7 +58,7 @@ public class GrupoController {
     ModelAndView getGrupo() {
         ModelAndView mv = new ModelAndView("grupo/grupo");
         Grupo grupo = new Grupo();
-        List<Permissao> permissoes = permissaoService.findAll();
+        List<Permissao> permissoes = permissaoService.findAllOrderDescricao();
         mv.addObject("permissoes", permissoes);
         mv.addObject("grupo", grupo);
         return mv;

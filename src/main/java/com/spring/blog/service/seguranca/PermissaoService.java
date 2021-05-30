@@ -11,6 +11,7 @@ import java.util.List;
 public interface PermissaoService {
 
     List<Permissao> findAll();
+    List<Permissao> findAllOrderDescricao();
     List<Permissao> findPermissoesEscolhidas(Grupo grupo);
     List<Permissao> findPermissoesNaoEscolhidas(Grupo grupo);
     Permissao findById(long id);
