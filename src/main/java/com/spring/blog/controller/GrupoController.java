@@ -100,6 +100,7 @@ public class GrupoController {
     }
 
     @RequestMapping(value = "/apagarGrupo/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','DELETE_GRUPO')")
     String postApagarUsuario(RedirectAttributes attributes, @PathVariable("id") Long id) {
         Grupo grupo = grupoService.findById(id);
 
@@ -112,6 +113,7 @@ public class GrupoController {
     }
 
     @RequestMapping(value = "/grupo/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_GRUPO')")
     ModelAndView getGrupoEditar(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("grupo/grupo");
         Grupo grupo = grupoService.findById(id);
@@ -124,6 +126,7 @@ public class GrupoController {
     }
 
     @RequestMapping(value = "/grupo/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN','EDIT_GRUPO')")
     String postGrupoEditar(@PathVariable("id") Long id, RedirectAttributes attributes, Grupo grupo, Long[] idsSelecionados, Long[] idsNaoSelecionados) {
 
         Grupo novoGrupo = grupoService.findByName(grupo.getNome());

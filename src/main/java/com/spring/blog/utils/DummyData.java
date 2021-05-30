@@ -44,7 +44,7 @@ public class DummyData {
         //Criando permissoes
         Permissao permissao = new Permissao();
         permissao.setNome("GERENC_USUARIO");
-        permissao.setDescricao("Gerenciar Usuários");
+        permissao.setDescricao("Listar Usuários");
         permissaoService.save(permissao);
 
         permissao = new Permissao();
@@ -54,7 +54,7 @@ public class DummyData {
 
         permissao = new Permissao();
         permissao.setNome("GERENC_GRUPO");
-        permissao.setDescricao("Gerenciar Grupo");
+        permissao.setDescricao("Listar Grupo");
         permissaoService.save(permissao);
 
         permissao = new Permissao();
@@ -64,7 +64,7 @@ public class DummyData {
 
         permissao = new Permissao();
         permissao.setNome("GERENC_POST");
-        permissao.setDescricao("Gerenciar Posts");
+        permissao.setDescricao("Listar Posts");
         permissaoService.save(permissao);
 
         permissao = new Permissao();
@@ -80,6 +80,16 @@ public class DummyData {
         permissao = new Permissao();
         permissao.setNome("DELETE_USER");
         permissao.setDescricao("Apagar Usuario");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("EDIT_GRUPO");
+        permissao.setDescricao("Editar Grupo");
+        permissaoService.save(permissao);
+
+        permissao = new Permissao();
+        permissao.setNome("DELETE_GRUPO");
+        permissao.setDescricao("Apagar Grupo");
         permissaoService.save(permissao);
 
         permissao = new Permissao();

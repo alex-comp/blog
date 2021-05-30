@@ -37,9 +37,11 @@
                         <div class="row" style="margin-left: 0px; margin: auto; display: block">
                             <a th:href="${'/grupoConsulta/' + grupo.id}" class="btn btn-info"><i title="Visualizar Grupo" class="material-icons"
                                                                 style="vertical-align: bottom">visibility</i></a>
-                            <a th:href="${'/grupo/' + grupo.id}" class="btn btn-primary"><i title="Editar Grupo" class="material-icons"
+                            <a sec:authorize="hasAnyAuthority('ADMIN','EDIT_GRUPO')"
+                               th:href="${'/grupo/' + grupo.id}" class="btn btn-primary"><i title="Editar Grupo" class="material-icons"
                                                                    style="vertical-align: bottom">edit</i></a>
-                            <button type="button" data-toggle="modal" th:data-target="${'#deletar-' + grupo.id}"
+                            <button sec:authorize="hasAnyAuthority('ADMIN','DELETE_GRUPO')"
+                                    type="button" data-toggle="modal" th:data-target="${'#deletar-' + grupo.id}"
                                     class="btn btn-danger"><i title="Apagar Grupo" class="material-icons"
                                                                   style="vertical-align: bottom">close</i></button>
                             <!-- Modal -->
