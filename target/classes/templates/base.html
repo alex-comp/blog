@@ -1,42 +1,57 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="header">
     <header style="margin-bottom: 20px">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <a href="/posts"><span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyBlog</span></a>
-                 <ul sec:authorize="isAuthenticated()" class="navbar-nav mr-auto mt-2 mt-lg-0">
-                     <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_USUARIO','CADASTRO_USUARIO')" class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Usuários
-                         </a>
-                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                             <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_USUARIO')" class="dropdown-item" href="/listarUsuarios">Gerenciar Usuários</a>
-                             <a sec:authorize="hasAnyAuthority('ADMIN','CADASTRO_USUARIO')" class="dropdown-item" href="/usuario">Cadastrar Usuário</a>
-                         </div>
-                     </li>
-                     <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_GRUPO','CADASTRO_FRUPO')" class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGrupos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Grupos
-                         </a>
-                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                             <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_GRUPO')" class="dropdown-item" href="/listarGrupos">Gerenciar Grupos</a>
-                             <a sec:authorize="hasAnyAuthority('ADMIN','CADASTRO_FRUPO')" class="dropdown-item" href="/grupo">Cadastrar Grupo</a>
-                         </div>
-                     </li>
-                     <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST','CRIAR_POST')" class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPosts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Posts
-                         </a>
-                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                             <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST')" class="dropdown-item" href="/listarPosts">Gerenciar Posts</a>
-                             <a sec:authorize="hasAnyAuthority('ADMIN','CRIAR_POST')" class="dropdown-item" href="/newPost">Cadastrar Post</a>
-                         </div>
-                     </li>
-                 </ul>
+            <div class="collapse navbar-collapse">
+                <ul sec:authorize="isAuthenticated()" class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_USUARIO','CADASTRO_USUARIO')"
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowUsuarios" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_USUARIO')" class="dropdown-item"
+                               href="/listarUsuarios">Gerenciar Usuários</a>
+                            <a sec:authorize="hasAnyAuthority('ADMIN','CADASTRO_USUARIO')" class="dropdown-item"
+                               href="/usuario">Cadastrar Usuário</a>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_GRUPO','CADASTRO_FRUPO')"
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGrupos" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Grupos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_GRUPO')" class="dropdown-item"
+                               href="/listarGrupos">Gerenciar Grupos</a>
+                            <a sec:authorize="hasAnyAuthority('ADMIN','CADASTRO_FRUPO')" class="dropdown-item"
+                               href="/grupo">Cadastrar Grupo</a>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST','CRIAR_POST')" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPosts" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Posts
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a sec:authorize="hasAnyAuthority('ADMIN','GERENC_POST')" class="dropdown-item"
+                               href="/listarPosts">Gerenciar Posts</a>
+                            <a sec:authorize="hasAnyAuthority('ADMIN','CRIAR_POST')" class="dropdown-item"
+                               href="/newPost">Cadastrar Post</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <ul sec:authorize="isAuthenticated()" class="navbar-nav nav-fill ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="img-profile rounded-circle" th:src="@{/images/personIcon.svg}" width="30"> <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                                                                                                                 sec:authentication="principal.nome"></span>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" style="cursor: pointer;"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-profile rounded-circle" th:src="@{/images/personIcon.svg}" width="30"> <span
+                            class="mr-2 d-none d-lg-inline text-gray-600 small"
+                            sec:authentication="principal.nome"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <form action="/logout" method="post" style="margin-bottom: 0px;">
